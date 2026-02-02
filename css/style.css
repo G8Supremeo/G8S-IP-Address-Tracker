@@ -1,0 +1,303 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Rubik', sans-serif, Helvetica;
+    color: hsl(240, 31%, 28%);
+    background-color: #ffffff;
+}
+
+.my-app {/* Main wrapper container. */
+    min-height: 100vh; /* Makes the app fill the screen height. */
+    display: flex; /* Allows header and map to stack nicely. */
+    flex-direction: column; /* Stacks header and map vertically. */
+    align-items: stretch; /* Let children fill full width on desktop. */
+}
+
+.my-app__header {/* Header/hero section. */
+    padding: 24px 24px 120px; /* Space around content; extra bottom for card overlap. */
+    background: url("../images/pattern-bg-mobile.png") no-repeat center / cover #3f51b5; /* Mobile background image. */
+    text-align: center; /* Center title and form on mobile. */
+    position: relative; /* Allows stacking with the map. */
+    z-index: 1; /* Keeps the card above the map. */
+    width: 100%; /* Ensure header spans full width. */
+} /* Ends .header styles. */
+
+.my-app__header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.my-app__title { /* Main heading text. */
+    margin: 0 0 24px; /* Space under the title. */
+    color: #ffffff; /* White text for contrast. */
+    font-size: 26px; /* Mobile title size. */
+    font-weight: 500; /* Medium weight from style guide. */
+} /* Ends .title styles. */
+
+.my-app__theme-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.my-app__form {/* Form wrapper for input + button. */
+    display: flex; /* Aligns input and button in one row. */
+    width: 100%;
+    max-width: 550px; /* Limits how far it can grow on desktop */
+    margin: 0 auto 24px; /* Centers it with bottom spacing. */
+    border-radius: 15px; /* Rounded corners like the design. */
+    overflow: hidden; /* Keeps rounded corners clean. */
+    background-color: #ffffff; /* White background for input. */
+} /* Ends .search-form styles. */
+
+.my-app__input {/* The text input field. */
+    flex: 1; /* Takes all remaining width. */
+    border: none; /* Removes default border. */
+    padding: 10px; /* Comfortable typing area. */
+    font-size: 16px; /* Readable size. */
+    overflow-x: auto; 
+    min-width: 0; /* Ensures the input expands to show all characters */
+    field-sizing: content; /* Modern CSS (Chrome/Edge/Opera only currently) */
+    outline: 2px solid hsl(from black h s l / 0.3); /* Removes focus outline; you can add a custom one. */
+} /* Ends .search-input styles. */
+
+.my-app__button {
+  width: 40px;
+  height: 40px; /* Ensure it stays square */
+  background-color: hsl(0, 4%, 5%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 1. The Thick Border */
+  border: 1px solid hsl(240, 31%, 28%); 
+  
+  /* 2. Setup for Animation */
+  /* COMBINED TRANSITION (Fixed) */
+  transition: border-color 0.3s ease, 
+              transform 0.2s ease, 
+              background-color 0.3s ease;
+
+  animation: pulse-border 2s infinite; /* Continuous animation */
+}
+
+.my-app__button-text {
+  display: none;
+}
+
+.my-app__loader {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.my-app__button.is-loading .my-app__button-icon {
+  display: none;
+}
+
+.my-app__button.is-loading .my-app__loader {
+  display: inline-block;
+}
+
+.my-app__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Hover effect: Border gets brighter */
+.my-app__button:hover {
+  border-color: hsl(240, 31%, 45%);
+  background-color: hsl(0, 0%, 25%);
+  transform: scale(1.05); /* Slightly grows the button */
+  /* Optional: Pause animation on hover so the transition is clear */
+  animation-play-state: paused; 
+}
+
+/* The Pulse Animation */
+@keyframes pulse-border {
+  0% { border-width: 2px; border-color: hsl(240, 31%, 28%); }
+  50% { border-width: 4px; border-color: hsl(240, 50%, 40%); }
+  100% { border-width: 2px; border-color: hsl(240, 31%, 28%); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marker-bounce {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+body.dark {
+  background-color: #111;
+  color: #eaeaea;
+}
+
+body.dark .results {
+  background-color: #1b1b1b;
+  color: #eaeaea;
+}
+
+body.dark .results__item-label {
+  color: #c9c9c9;
+}
+
+body.dark .recent-searches__item {
+  background: #2a2a2a;
+  color: #eaeaea;
+}
+
+
+.results { /* Results card container. */
+  background-color: #ffffff; /* Card background. */
+  border-radius: 12px; /* Rounded corners. */
+  padding: 24px; /* Inner spacing. */
+  max-width: 900px; /* Limits width on large screens. */
+  margin: 0 auto; /* Center the card. */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Soft shadow for depth. */
+  display: grid; /* Easy stacking on mobile. */
+  gap: 16px; /* Space between items. */
+} /* Ends .results styles. */
+
+.my-app__message {
+  margin: 8px auto 0;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 10px;
+  border-radius: 8px;
+  max-width: 520px;
+}
+
+.my-app__message.is-error {
+  background: rgba(180, 0, 0, 0.7);
+}
+
+.results-item { /* Each result block. */
+  text-align: left; /* Align text left for readability. */
+} /* Ends .results-item styles. */
+
+.results__item-label { /* Label text (small caps). */
+  margin: 0 0 8px; /* Small space under label. */
+  font-size: 10px; /* Small uppercase label. */
+  letter-spacing: 1.5px; /* Spaced letters for style. */
+  text-transform: uppercase; /* All caps. */
+  color: hsl(243, 78%, 29%); /* Gray from style guide. */
+  font-weight: 700; /* Bold label. */
+} /* Ends .result-label styles. */
+
+.results__item-value { /* Value text (larger). */
+  margin: 0; /* Remove default paragraph margin. */
+  font-size: 20px; /* Bigger value text. */
+  font-weight: 500; /* Medium weight. */
+} /* Ends .result-value styles. */
+
+.my-app__map { /* Map container. */
+  flex: 1; /* Map takes remaining height. */
+  min-height: 400px; /* Ensures map is visible. */
+  margin-top: -80px; /* Pulls map under the card. */
+} /* Ends .map styles. */
+
+.marker-bounce {
+  animation: marker-bounce 0.6s ease;
+}
+
+.recent-searches {
+  margin: 16px auto 0;
+  max-width: 900px;
+  text-align: left;
+}
+
+.recent-searches__title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+}
+
+.recent-searches__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recent-searches__item {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.sr-only { /* Visually hidden text for screen readers. */
+  position: absolute; /* Takes it out of normal layout. */
+  width: 1px; /* Shrinks width to 1px. */
+  height: 1px; /* Shrinks height to 1px. */
+  padding: 0; /* Removes padding. */
+  margin: -1px; /* Pulls it off-screen. */
+  overflow: hidden; /* Hides overflow. */
+  clip: rect(0, 0, 0, 0); /* Clips the element to nothing. */
+  border: 0; /* Removes border. */
+} /* Ends .sr-only styles. */
+
+
+@media (min-width: 900px) { /* Desktop breakpoint starts here. */
+  .my-app__header { /* Desktop header adjustments. */
+    padding: 32px 24px 140px; /* More spacing on desktop. */
+    background-image: url("../images/pattern-bg-desktop.png"); /* Desktop background image. */
+  } /* Ends .header desktop styles. */
+
+  .my-app__header-row {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .my-app__title { /* Desktop title adjustments. */
+    font-size: 32px; /* Larger desktop title. */
+  } /* Ends .title desktop styles. */
+
+  .results { /* Desktop results layout. */
+    grid-template-columns: repeat(4, 1fr); /* Four columns on desktop. */
+    text-align: left; /* Keeps text left aligned. */
+  } /* Ends .results desktop styles. */
+
+  .results-item { /* Desktop result block styling. */
+    padding-right: 16px; /* Space for divider. */
+    border-right: 3px solid #1e40af; /* Vertical divider line (thicker blue). */
+  } /* Ends .results-item desktop styles. */
+
+  .results-item:last-child { /* Last item shouldn't have divider. */
+    border-right: none; /* No divider on last item. */
+    padding-right: 0; /* Remove extra spacing. */
+  } /* Ends last-child styles. */
+
+  .my-app__map { /* Desktop map overlap adjustment. */
+    margin-top: -100px; /* Slightly bigger overlap on desktop. */
+  } /* Ends .map desktop styles. */
+} /* Ends the media query. */
