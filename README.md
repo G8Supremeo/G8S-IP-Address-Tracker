@@ -32,7 +32,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Github_repo](https://github.com/G8Supremeo/G8S-IP-Address-Tracker)
 - Live Site URL: [G8S_IP_Adress_Tracker](https://g8s-address-tracker.vercel.app/)
 
 ## My process
@@ -63,5 +63,5 @@ I want to improve validation and error handling, and add more polish to the UI.
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- Frontend Mentor - [@G8Supremeo](https://www.frontendmentor.io/profile/G8Supremeo)
 
