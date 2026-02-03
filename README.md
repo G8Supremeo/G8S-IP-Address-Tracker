@@ -63,5 +63,8 @@ I want to improve validation and error handling, and add more polish to the UI.
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- Frontend Mentor - [@G8Supremeo](https://www.frontendmentor.io/profile/G8Supremeo)
+
+
+
 
